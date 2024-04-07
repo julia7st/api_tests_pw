@@ -99,3 +99,17 @@ test("check pet can be deleted", async ({ request }) => {
   });
   expect(issues.ok()).toBeTruthy();
 });
+
+test("Find pet by ID", async ({ request }) => {
+  let id = 3;
+  const response = await request.get(
+    `https://petstore.swagger.io/v2/pet/${id}`
+  );
+  if (response.status() == 200) {
+    const body = await response.json();
+    console.log(body);
+  } else {
+    const error = await response.json();
+    console.log("Pet not found:\n", error);
+  }
+});
